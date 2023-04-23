@@ -1,9 +1,11 @@
 import { Router } from "express";
-import userValidate from "../middlewares/userValidate";
+import { signUpUser, loginUser } from "../controllers/AuthController.js";
+import { loginUserSchema, registerUserSchema } from "../schemas/authSchemas.js";
+import userValidate from "../middlewares/userValidate.js";
 
 const authRouter = Router();
 
-authRouter.post("/", loginUser);
-authRouter.post("/cadastro", signUpUser);
+authRouter.post("/", userValidate(loginUserSchema), loginUser);
+authRouter.post("/cadastro", userValidate(registerUserSchema), signUpUser);
 
 export default authRouter;
